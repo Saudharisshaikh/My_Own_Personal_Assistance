@@ -4,7 +4,7 @@
     android:padding="20dp"
     >
 
-    <solid android:color="@color/color_accent"/>
+    <solid android:color="@color/colorAccent"/>
     <corners android:radius="10dp"/>
 
 

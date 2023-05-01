@@ -13,6 +13,16 @@
         <action
             android:id="@+id/action_homeFragment_to_addScheduleFragment"
             app:destination="@id/addScheduleFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_aboutUsFragment"
+            app:destination="@id/aboutUsFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_ratingFragment"
+            app:destination="@id/ratingFragment" />
+
+           <action android:id="@+id/action_homeFragment_to_privacyFragment"
+               app:destination="@+id/privacyFragment"/>
+
     </fragment>
     <fragment
         android:id="@+id/addScheduleFragment"
