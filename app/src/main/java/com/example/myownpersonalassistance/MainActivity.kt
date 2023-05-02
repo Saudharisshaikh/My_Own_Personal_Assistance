@@ -10,6 +10,7 @@ import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.NavHost
+import androidx.navigation.ui.*
 import com.example.myownpersonalassistance.Fragments.AboutUsFragment
 import com.example.myownpersonalassistance.Fragments.HomeFragment
 import com.example.myownpersonalassistance.Fragments.PrivacyFragment
@@ -21,6 +22,7 @@ class MainActivity : AppCompatActivity() {
 
     lateinit var activityMainBinding: ActivityMainBinding
 
+    lateinit var appBarConfiguration: AppBarConfiguration
     lateinit var actionBarDrawerToggle :ActionBarDrawerToggle
 
     private lateinit var navController: NavController
@@ -36,12 +38,20 @@ class MainActivity : AppCompatActivity() {
 
         navController = navHost.navController
 
+        appBarConfiguration = AppBarConfiguration(
+            setOf(R.id.homeFragment),
+            activityMainBinding.drawerlayout
+        )
 
-         actionBarDrawerToggle  = ActionBarDrawerToggle(this,activityMainBinding.drawerlayout,R.string.menu_open,R.string.menu_close)
-        activityMainBinding.drawerlayout.addDrawerListener(actionBarDrawerToggle)
-        actionBarDrawerToggle.syncState()
+
         setSupportActionBar(activityMainBinding.toolbar)
-        setFragment(R.id.home,null)
+        setupActionBarWithNavController(navController)
+//        setFragment(R.id.homeFragment,null)
+
+        //         actionBarDrawerToggle  = ActionBarDrawerToggle(this,activityMainBinding.drawerlayout,R.string.menu_open,R.string.menu_close)
+//        activityMainBinding.drawerlayout.addDrawerListener(actionBarDrawerToggle)
+//        actionBarDrawerToggle.syncState()
+        activityMainBinding.navigationView.setupWithNavController(navController)
 
         activityMainBinding.addMeeting.setOnClickListener {
 
@@ -49,20 +59,21 @@ class MainActivity : AppCompatActivity() {
 
         }
 
-        activityMainBinding.navigationView.setNavigationItemSelectedListener(NavigationView.OnNavigationItemSelectedListener { item ->
-            Log.d("--item", "onCreate: "+item.itemId)
-            setFragment(item.itemId, null)
-            true
-        })
+//        activityMainBinding.navigationView.setNavigationItemSelectedListener(NavigationView.OnNavigationItemSelectedListener { item ->
+//            Log.d("--item", "onCreate: "+item.itemId)
+//            setFragment(item.itemId, null)
+//            true
+//        })
     }
 
 
+    override fun onSupportNavigateUp(): Boolean {
+        return   navController.navigateUp(appBarConfiguration) ||  super.onSupportNavigateUp()
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
-        if(actionBarDrawerToggle.onOptionsItemSelected(item)){
-            return true
-        }
-        return super.onOptionsItemSelected(item)
+       return item.onNavDestinationSelected(navController) || super.onOptionsItemSelected(item)
     }
 
 
@@ -71,22 +82,22 @@ class MainActivity : AppCompatActivity() {
         bundle = bundle ?: Bundle()
         var fragment: Fragment? = null
         when (id) {
-            R.id.About -> {
+            R.id.aboutUsFragment -> {
                 activityMainBinding.drawerlayout.closeDrawer(GravityCompat.START)
                 fragment = AboutUsFragment()
                 navController.navigate(R.id.action_homeFragment_to_aboutUsFragment)
             }
-            R.id.home -> {
+            R.id.homeFragment -> {
                 activityMainBinding.drawerlayout.closeDrawer(GravityCompat.START)
                 fragment = HomeFragment()
 
             }
-            R.id.policy -> {
+            R.id.privacyFragment -> {
                activityMainBinding.drawerlayout.closeDrawer(GravityCompat.START)
                 fragment = PrivacyFragment()
                 navController.navigate(R.id.action_homeFragment_to_privacyFragment)
             }
-            R.id.rating -> {
+            R.id.ratingFragment -> {
               activityMainBinding.drawerlayout.closeDrawer(GravityCompat.START)
                 fragment = RatingFragment()
                 navController.navigate(R.id.action_homeFragment_to_ratingFragment)

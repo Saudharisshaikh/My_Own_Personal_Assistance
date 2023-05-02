@@ -4,19 +4,19 @@
     <group android:checkableBehavior="single"
         >
 
-        <item android:id="@+id/home"
+        <item android:id="@+id/homeFragment"
             android:title="Home"
             />
 
-        <item android:id="@+id/About"
+        <item android:id="@+id/aboutUsFragment"
             android:title="About Us"
             />
 
-        <item android:id="@+id/policy"
+        <item android:id="@+id/privacyFragment"
             android:title="Privacy Policy"
             />
 
-        <item android:id="@+id/rating"
+        <item android:id="@+id/ratingFragment"
             android:title="Rate Us"
             />
     </group>
