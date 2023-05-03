@@ -43,9 +43,12 @@ class MainActivity : AppCompatActivity() {
             activityMainBinding.drawerlayout
         )
 
+        NavigationUI.setupWithNavController(
+            activityMainBinding.toolbar,
+            navController,
+            appBarConfiguration
+        )
 
-        setSupportActionBar(activityMainBinding.toolbar)
-        setupActionBarWithNavController(navController)
 //        setFragment(R.id.homeFragment,null)
 
         //         actionBarDrawerToggle  = ActionBarDrawerToggle(this,activityMainBinding.drawerlayout,R.string.menu_open,R.string.menu_close)
