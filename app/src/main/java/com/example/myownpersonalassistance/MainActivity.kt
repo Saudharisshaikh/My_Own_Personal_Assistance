@@ -23,7 +23,6 @@ class MainActivity : AppCompatActivity() {
     lateinit var activityMainBinding: ActivityMainBinding
 
     lateinit var appBarConfiguration: AppBarConfiguration
-    lateinit var actionBarDrawerToggle :ActionBarDrawerToggle
 
     private lateinit var navController: NavController
 
@@ -48,12 +47,6 @@ class MainActivity : AppCompatActivity() {
             navController,
             appBarConfiguration
         )
-
-//        setFragment(R.id.homeFragment,null)
-
-        //         actionBarDrawerToggle  = ActionBarDrawerToggle(this,activityMainBinding.drawerlayout,R.string.menu_open,R.string.menu_close)
-//        activityMainBinding.drawerlayout.addDrawerListener(actionBarDrawerToggle)
-//        actionBarDrawerToggle.syncState()
         activityMainBinding.navigationView.setupWithNavController(navController)
 
         activityMainBinding.addMeeting.setOnClickListener {
@@ -62,11 +55,6 @@ class MainActivity : AppCompatActivity() {
 
         }
 
-//        activityMainBinding.navigationView.setNavigationItemSelectedListener(NavigationView.OnNavigationItemSelectedListener { item ->
-//            Log.d("--item", "onCreate: "+item.itemId)
-//            setFragment(item.itemId, null)
-//            true
-//        })
     }
 
 
@@ -80,38 +68,7 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    fun setFragment(@IdRes id: Int, bundle: Bundle?) {
-        var bundle = bundle
-        bundle = bundle ?: Bundle()
-        var fragment: Fragment? = null
-        when (id) {
-            R.id.aboutUsFragment -> {
-                activityMainBinding.drawerlayout.closeDrawer(GravityCompat.START)
-                fragment = AboutUsFragment()
-                navController.navigate(R.id.action_homeFragment_to_aboutUsFragment)
-            }
-            R.id.homeFragment -> {
-                activityMainBinding.drawerlayout.closeDrawer(GravityCompat.START)
-                fragment = HomeFragment()
 
-            }
-            R.id.privacyFragment -> {
-               activityMainBinding.drawerlayout.closeDrawer(GravityCompat.START)
-                fragment = PrivacyFragment()
-                navController.navigate(R.id.action_homeFragment_to_privacyFragment)
-            }
-            R.id.ratingFragment -> {
-              activityMainBinding.drawerlayout.closeDrawer(GravityCompat.START)
-                fragment = RatingFragment()
-                navController.navigate(R.id.action_homeFragment_to_ratingFragment)
-            }
-            else -> {
-               activityMainBinding.drawerlayout.closeDrawer(GravityCompat.START)
-                fragment = HomeFragment()
-            }
-        }
-
-    }
 
 
 }
