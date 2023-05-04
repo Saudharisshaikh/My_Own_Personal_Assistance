@@ -78,6 +78,7 @@
                       android:layout_height="wrap_content"
                       android:layout_centerVertical="true"
                       android:text=""
+                      android:id="@+id/title"
                       android:hint="Select Title"
                       android:layout_marginStart="10dp"
                       />

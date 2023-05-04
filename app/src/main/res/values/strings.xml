@@ -6,4 +6,6 @@
 
     <string name="menu_open">Open</string>
     <string name="menu_close">Close</string>
+
+    <string name="list_title">Select Schedule</string>
 </resources>
