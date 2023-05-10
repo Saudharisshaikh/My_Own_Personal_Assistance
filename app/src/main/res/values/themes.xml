@@ -26,6 +26,12 @@
     </style>
 
 
+    <style name="DateTimePickerTheme" parent="Theme.MaterialComponents.Light.Dialog">
+        <item name="colorAccent">@color/colorPrimarys</item>
+        <item name="colorPrimary">@color/colorPrimarys</item>
+        <item name="colorPrimaryDark">@color/black</item>
+    </style>
+
     <style name="buttontheme" parent="Theme.AppCompat">
        <item name="background">@color/colorAccent</item>
         <item name="android:textColor">@color/white</item>

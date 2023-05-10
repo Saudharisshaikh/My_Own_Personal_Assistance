@@ -10,9 +10,6 @@
 
 
 
-
-
-
     <ScrollView
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -49,7 +46,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/back_click"
+
                 android:layout_marginTop="30dp"
                 android:layout_marginStart="20dp"
                 android:text="Title"
@@ -106,7 +103,7 @@
                    app:layout_constraintTop_toBottomOf="@+id/title_layout"
                    app:layout_constraintStart_toStartOf="parent"
                    android:id="@+id/others"
-                   android:visibility="visible"
+                   android:visibility="gone"
                    android:hint="others"
                    android:paddingLeft="10dp"
                    android:layout_marginBottom="20dp"
@@ -183,7 +180,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginTop="10dp"
                 android:id="@+id/time_layout"
-                android:gravity="center"
                 android:orientation="vertical"
                 style="@style/EditTextTheme"
                 android:background="@drawable/edit_text_background">
@@ -193,7 +189,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:hint="02:03:am"
-                    android:id="@+id/time"
+                    android:id="@+id/time_text"
+                    android:layout_centerVertical="true"
                     android:textColorHint="@color/black"
                     android:textColor="@color/black"
                     android:layout_marginStart="10dp"

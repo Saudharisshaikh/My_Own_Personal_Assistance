@@ -22,9 +22,6 @@ class Util {
 
     companion object {
 
-
-
-
         fun  showListDialogGeneric(
             context: Context?,
             list: ArrayList<TitleEntity>?,

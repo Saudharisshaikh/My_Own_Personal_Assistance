@@ -3,13 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_nav_graph"
+    android:label="Home"
     app:startDestination="@id/homeFragment">
 
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.example.myownpersonalassistance.Fragments.HomeFragment"
-        android:label="fragment_home"
-        tools:layout="@layout/fragment_home" >
+        android:label="Home "
+        tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_homeFragment_to_addScheduleFragment"
             app:destination="@id/addScheduleFragment" />
@@ -20,29 +21,30 @@
             android:id="@+id/action_homeFragment_to_ratingFragment"
             app:destination="@id/ratingFragment" />
 
-           <action android:id="@+id/action_homeFragment_to_privacyFragment"
-               app:destination="@+id/privacyFragment"/>
+        <action
+            android:id="@+id/action_homeFragment_to_privacyFragment"
+            app:destination="@+id/privacyFragment" />
 
     </fragment>
     <fragment
         android:id="@+id/addScheduleFragment"
         android:name="com.example.myownpersonalassistance.Fragments.AddScheduleFragment"
-        android:label="fragment_add_schedule"
+        android:label="Add Schedule"
         tools:layout="@layout/fragment_add_schedule" />
     <fragment
         android:id="@+id/privacyFragment"
         android:name="com.example.myownpersonalassistance.Fragments.PrivacyFragment"
-        android:label="fragment_privacy"
+        android:label="Privacy"
         tools:layout="@layout/fragment_privacy" />
     <fragment
         android:id="@+id/ratingFragment"
         android:name="com.example.myownpersonalassistance.Fragments.RatingFragment"
-        android:label="fragment_rating"
+        android:label="Rating"
         tools:layout="@layout/fragment_rating" />
     <fragment
         android:id="@+id/aboutUsFragment"
         android:name="com.example.myownpersonalassistance.Fragments.AboutUsFragment"
-        android:label="fragment_about_us"
+        android:label="About us"
         tools:layout="@layout/fragment_about_us" />
     <fragment
         android:id="@+id/editIndividualCountDownFragment"
