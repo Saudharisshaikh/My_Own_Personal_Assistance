@@ -22,6 +22,16 @@ class Util {
 
     companion object {
 
+
+
+        fun convertInto12Hours(hours:Int){
+
+            when{
+                
+            }
+
+        }
+
         fun  showListDialogGeneric(
             context: Context?,
             list: ArrayList<TitleEntity>?,

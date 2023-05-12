@@ -130,7 +130,11 @@ class AddScheduleFragment : Fragment() {
                     d = day
                     calendar.set(Calendar.YEAR, year)
                     calendar.set(Calendar.MONTH, month)
-                    calendar.set(Calendar.DAY_OF_MONTH, day)
+                    calendar.set(Calendar.DATE, day)
+
+                    Log.d("--dateSelected", "setActionListener: "+calendar.timeInMillis)
+
+
                     fragmentAddScheduleBinding.dateTxt.setText(
                         DateFormatUtils.format(calendar.time, dateFormat)
                     )
@@ -157,6 +161,14 @@ class AddScheduleFragment : Fragment() {
                         mon++
                     }
                     val sss = "$y-$mon-$d $h:$m:00"
+                    calendar.set(Calendar.YEAR, y)
+                    calendar.set(Calendar.MONTH, m)
+                    calendar.set(Calendar.DATE, d-1)
+                    calendar.set(Calendar.HOUR,h)
+                    calendar.set(Calendar.MINUTE,m)
+                    calendar.set(Calendar.SECOND,0)
+
+                    Log.d("--newDateTime ", "setActionListener: "+calendar.timeInMillis)
 
                     // convert to Date string
                     selectedDateAndTime = LocalDateTime.of(y, mon, d, h, m).toString()
@@ -166,6 +178,7 @@ class AddScheduleFragment : Fragment() {
                     Log.d("--getDates", "onTimeSet: $time")
 
                     fragmentAddScheduleBinding.timeText.setText("$i:$i1")
+                    Log.d("--ytime", "setActionListener: ")
                 }, hour, minute, false
             )
 
