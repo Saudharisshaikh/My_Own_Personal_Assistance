@@ -10,6 +10,7 @@ import android.widget.AdapterView.OnItemClickListener
 import android.widget.ArrayAdapter
 import android.widget.ListView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AlertDialog
 import com.example.myownpersonalassistance.Fragments.Entities.TitleEntity
@@ -21,6 +22,8 @@ class Util {
     }
 
     companion object {
+
+
 
 
 

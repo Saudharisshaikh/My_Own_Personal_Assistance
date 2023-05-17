@@ -2,6 +2,8 @@ package com.example.myownpersonalassistance.Fragments
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
+import android.app.TimePickerDialog.OnTimeSetListener
+import android.content.Context
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
@@ -9,6 +11,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import com.example.myownpersonalassistance.Fragments.Entities.TitleEntity
@@ -17,22 +20,22 @@ import com.example.myownpersonalassistance.Utils.Constants
 import com.example.myownpersonalassistance.Utils.Util
 import com.example.myownpersonalassistance.databinding.FragmentAddScheduleBinding
 import org.apache.commons.lang3.time.DateFormatUtils
+import org.joda.time.DateTime
+import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.time.LocalDateTime
+import java.time.ZoneId
+import java.time.ZoneOffset
 import java.util.*
-
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
+import java.util.concurrent.TimeUnit
 
 class AddScheduleFragment : Fragment() {
 
    lateinit var list: ArrayList<TitleEntity>
 
-    var isOtherTitle:Boolean = false
 
+    var isOtherTitle:Boolean = false
+    var isDateSelected = false
     private val calendar = Calendar.getInstance()
 
     var selectedDateAndTime: String? = null
@@ -56,6 +59,7 @@ class AddScheduleFragment : Fragment() {
         return fragmentAddScheduleBinding.root
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -132,6 +136,7 @@ class AddScheduleFragment : Fragment() {
                     calendar.set(Calendar.MONTH, month)
                     calendar.set(Calendar.DATE, day)
 
+                    isDateSelected = true
                     Log.d("--dateSelected", "setActionListener: "+calendar.timeInMillis)
 
 
@@ -152,47 +157,100 @@ class AddScheduleFragment : Fragment() {
 
         fragmentAddScheduleBinding.timeLayout.setOnClickListener {
 
-            val timePickerDialog = TimePickerDialog(
-                activity, R.style.DateTimePickerTheme,
-                { timePicker, i, i1 ->
-                    h = i
-                    m = i1
-                    if (mon != 12) {
-                        mon++
-                    }
-                    val sss = "$y-$mon-$d $h:$m:00"
-                    calendar.set(Calendar.YEAR, y)
-                    calendar.set(Calendar.MONTH, m)
-                    calendar.set(Calendar.DATE, d-1)
-                    calendar.set(Calendar.HOUR,h)
-                    calendar.set(Calendar.MINUTE,m)
-                    calendar.set(Calendar.SECOND,0)
+            if(isDateSelected) {
+                val timePickerDialog = TimePickerDialog(
+                    activity, R.style.DateTimePickerTheme,
+                    { timePicker, i, i1 ->
+                        h = i
+                        m = i1
+                        if (mon != 12) {
+                            mon++
+                        }
 
-                    Log.d("--newDateTime ", "setActionListener: "+calendar.timeInMillis)
+                        calendar.set(Calendar.YEAR, y)
+                        calendar.set(Calendar.MONTH, mon - 1)
+                        calendar.set(Calendar.DATE, d - 1)
+                        calendar.set(Calendar.HOUR, h)
+                        calendar.set(Calendar.MINUTE, m)
+                        calendar.set(Calendar.SECOND, 0)
 
-                    // convert to Date string
-                    selectedDateAndTime = LocalDateTime.of(y, mon, d, h, m).toString()
+                        Log.d("--newDateTime ", "setActionListener: " + calendar.timeInMillis)
 
-                    // convert to string to Date
-                    val time = LocalDateTime.parse(selectedDateAndTime)
-                    Log.d("--getDates", "onTimeSet: $time")
+                        // convert to Date string
+                        selectedDateAndTime = LocalDateTime.of(y, mon, d, h, m).toString()
 
-                    fragmentAddScheduleBinding.timeText.setText("$i:$i1")
-                    Log.d("--ytime", "setActionListener: ")
-                }, hour, minute, false
-            )
+                        // convert to string to Date
+                        val time = LocalDateTime.parse(selectedDateAndTime)
+                        Log.d("--getDates", "onTimeSet: $time")
 
 
-            // at last we are calling show to
-            // display our time picker dialog.
+                        val timeFormate = formatTime(i,i1);
+
+                        fragmentAddScheduleBinding.timeText.setText("$timeFormate")
+                        Log.d("--ytime", "setActionListener: ")
+                    }, hour, minute, false
+                )
 
 
-            // at last we are calling show to
-            // display our time picker dialog.
-            timePickerDialog.show()
-            timePickerDialog.getButton(DatePickerDialog.BUTTON_POSITIVE).setTextColor(Color.BLACK)
-            timePickerDialog.getButton(DatePickerDialog.BUTTON_NEGATIVE).setTextColor(Color.BLACK)
+                timePickerDialog.show()
+                timePickerDialog.getButton(DatePickerDialog.BUTTON_POSITIVE)
+                    .setTextColor(Color.BLACK)
+                timePickerDialog.getButton(DatePickerDialog.BUTTON_NEGATIVE)
+                    .setTextColor(Color.BLACK)
+            }
+            else {
+                AddScheduleFragment.showMessage(requireContext(),"Please Select Date First!")
+            }
         }
 
     }
+
+    private fun formatTime(i: Int, i1: Int) :String{
+
+        var selectedHour = i
+        var selectedMinute = i1
+
+        var amOrPm = ""
+        if(i < 11 )
+           amOrPm = "am"
+        else
+            amOrPm = "pm"
+
+        when(selectedHour){
+
+            13 -> selectedHour = 1
+            14 -> selectedHour = 2
+            15 -> selectedHour = 3
+            16 -> selectedHour = 4
+            17 -> selectedHour = 5
+            18 -> selectedHour = 6
+            19 -> selectedHour = 7
+            20 -> selectedHour = 8
+            21 -> selectedHour = 9
+            22 -> selectedHour = 10
+            23 -> selectedHour = 11
+
+        }
+        var convertedHour = selectedHour.toString()
+        var convertedMinute = selectedMinute.toString()
+
+        if(selectedHour < 10)
+            convertedHour = "0${selectedHour}"
+
+        if(selectedMinute < 10)
+            convertedMinute = "0${selectedMinute}"
+
+
+
+       return "${convertedHour}:${convertedMinute}:${amOrPm}"
+    }
+
+    companion object
+
+
+}
+
+public fun AddScheduleFragment.Companion.showMessage(requireContext: Context, s: String) {
+
+    Toast.makeText(requireContext,s,Toast.LENGTH_LONG).show()
 }
