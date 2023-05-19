@@ -7,6 +7,8 @@ import android.content.Context
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -36,6 +38,10 @@ class AddScheduleFragment : Fragment() {
 
     var isOtherTitle:Boolean = false
     var isDateSelected = false
+
+    var dateTime:Long = 0L
+    var title:String = ""
+
     private val calendar = Calendar.getInstance()
 
     var selectedDateAndTime: String? = null
@@ -82,8 +88,9 @@ class AddScheduleFragment : Fragment() {
 
     public fun onSelectItem(postion:Int){
 
-        var title = list.get(postion).name
-        if(title.equals(Constants.TITLE_OTHERS)){
+        var titles = list.get(postion).name
+        title = titles
+        if(titles.equals(Constants.TITLE_OTHERS)){
             fragmentAddScheduleBinding.others.visibility = View.VISIBLE
             isOtherTitle = true
         }
@@ -99,6 +106,20 @@ class AddScheduleFragment : Fragment() {
         val minute: Int = c.get(Calendar.MINUTE)
 
         // on below line we are getting our hour, minute.
+
+        fragmentAddScheduleBinding.others.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                // This method is called before the text is changed
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                // This method is called when the text is being changed
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                // This method is called after the text has been changed
+            }
+        })
 
         fragmentAddScheduleBinding.titleLayout.setOnClickListener {
 
@@ -175,7 +196,7 @@ class AddScheduleFragment : Fragment() {
                         calendar.set(Calendar.SECOND, 0)
 
                         Log.d("--newDateTime ", "setActionListener: " + calendar.timeInMillis)
-
+                        dateTime = calendar.timeInMillis
                         // convert to Date string
                         selectedDateAndTime = LocalDateTime.of(y, mon, d, h, m).toString()
 
@@ -201,6 +222,10 @@ class AddScheduleFragment : Fragment() {
             else {
                 AddScheduleFragment.showMessage(requireContext(),"Please Select Date First!")
             }
+        }
+        fragmentAddScheduleBinding.saveBtn.setOnClickListener{
+
+
         }
 
     }
