@@ -41,6 +41,9 @@ class AddScheduleFragment : Fragment() {
 
     var dateTime:Long = 0L
     var title:String = ""
+    var message:String = ""
+
+
 
     private val calendar = Calendar.getInstance()
 
@@ -53,6 +56,8 @@ class AddScheduleFragment : Fragment() {
     var d = 0
 
     lateinit var fragmentAddScheduleBinding: FragmentAddScheduleBinding
+
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -82,7 +87,6 @@ class AddScheduleFragment : Fragment() {
         list.add(titleEntityFour)
         setActionListener()
 
-
     }
 
 
@@ -93,6 +97,10 @@ class AddScheduleFragment : Fragment() {
         if(titles.equals(Constants.TITLE_OTHERS)){
             fragmentAddScheduleBinding.others.visibility = View.VISIBLE
             isOtherTitle = true
+        }
+        else{
+            fragmentAddScheduleBinding.others.visibility = View.GONE
+            isOtherTitle = false
         }
 
 
@@ -117,7 +125,7 @@ class AddScheduleFragment : Fragment() {
             }
 
             override fun afterTextChanged(s: Editable?) {
-                // This method is called after the text has been changed
+                title =s.toString()
             }
         })
 
@@ -226,8 +234,49 @@ class AddScheduleFragment : Fragment() {
         fragmentAddScheduleBinding.saveBtn.setOnClickListener{
 
 
+            if(isValidData()){
+
+                showMessage(requireContext(),"Record added... title = "+title
+                        +" Data & Time = "+dateTime+" description = "
+                        +fragmentAddScheduleBinding.meetingDescription.text.toString())
+                // db code
+            }
+            else{
+
+                showMessage(requireContext(),message)
+            }
+
         }
 
+    }
+
+    private fun isValidData() : Boolean{
+
+        Log.d("--titlehere", "isValidData: "+title)
+        if(title.equals("")){
+            message = "Please select title."
+            return false
+        }
+        if(isOtherTitle){
+            title = fragmentAddScheduleBinding.others.text.toString()
+            if(title.equals("")){
+                message = "Please select title."
+                return false
+            }
+        }
+
+        else if(dateTime == 0L){
+
+            message = "Please select Date and time."
+            return false
+        }
+        else if(fragmentAddScheduleBinding.meetingDescription.text.toString().equals("")){
+
+            message = "Please write description."
+            return false
+        }
+
+    return  true
     }
 
     private fun formatTime(i: Int, i1: Int) :String{
@@ -275,7 +324,7 @@ class AddScheduleFragment : Fragment() {
 
 }
 
-public fun AddScheduleFragment.Companion.showMessage(requireContext: Context, s: String) {
+ fun AddScheduleFragment.Companion.showMessage(requireContext: Context, s: String) {
 
     Toast.makeText(requireContext,s,Toast.LENGTH_LONG).show()
 }
