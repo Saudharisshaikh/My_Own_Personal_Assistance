@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="250dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginVertical="20dp"
+        android:background="@color/white"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="4dp"
+        app:contentPadding="8dp"
+        android:layout_height="245dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+         <ImageView
+             android:layout_width="20dp"
+             android:layout_height="20dp"
+             app:layout_constraintStart_toStartOf="parent"
+             app:layout_constraintTop_toTopOf="parent"
+             android:src="@drawable/schedule"
+             android:id="@+id/schedule_icon"
+             />
+
+         <TextView
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             app:layout_constraintStart_toEndOf="@+id/schedule_icon"
+             app:layout_constraintTop_toTopOf="parent"
+             android:text="Schedule Name"
+             android:fontFamily="@font/font_medium"
+             android:layout_marginTop="5dp"
+             android:layout_marginStart="15dp"
+             android:textSize="10sp"
+             android:id="@+id/scheduletitle_label"
+             />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/scheduletitle_label"
+                app:layout_constraintStart_toStartOf="parent"
+                android:text="My Appointment"
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/font_medium"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:id="@+id/schedule_name"
+                android:textColor="@color/colorPrimarys"
+                android:textSize="22sp"
+                />
+
+
+           <View
+               android:layout_width="match_parent"
+               android:layout_height="1dp"
+               android:id="@+id/viewone"
+               android:background="@color/colorPrimarys"
+               android:layout_marginTop="8dp"
+               app:layout_constraintStart_toStartOf="parent"
+               app:layout_constraintTop_toBottomOf="@+id/schedule_name"
+               />
+
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/viewone"
+                android:src="@drawable/time_left"
+                android:layout_marginTop="10dp"
+                android:id="@+id/timeleft_icon"
+                android:tint="@color/colorPrimarys"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@+id/timeleft_icon"
+                app:layout_constraintTop_toBottomOf="@+id/viewone"
+                android:text="Time left"
+                android:fontFamily="@font/font_medium"
+                android:layout_marginTop="12dp"
+                android:layout_marginStart="15dp"
+                android:textSize="10sp"
+                android:id="@+id/timeleft_label"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:id="@+id/timeleft"
+                android:textColor="@color/colorPrimarys"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/timeleft_icon"
+                android:text="2 days left"
+                android:textSize="18sp"
+                />
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/timeleft"
+                android:src="@drawable/clock"
+                android:layout_marginTop="10dp"
+                android:id="@+id/time_icon"
+
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@+id/time_icon"
+                app:layout_constraintTop_toBottomOf="@+id/timeleft"
+                android:text="Time"
+                android:fontFamily="@font/font_medium"
+                android:layout_marginTop="12dp"
+                android:layout_marginStart="15dp"
+                android:textSize="10sp"
+                android:id="@+id/time_label"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:textColor="@color/colorPrimarys"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/timeleft_icon"
+                android:text="2 days left"
+                android:textSize="18sp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:textColor="@color/colorPrimarys"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/time_icon"
+                android:text="3:12:pm"
+                android:textSize="18sp"
+                />
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -16,11 +16,15 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import com.example.myownpersonalassistance.Fragments.Entities.TitleEntity
 import com.example.myownpersonalassistance.R
 import com.example.myownpersonalassistance.Utils.Constants
 import com.example.myownpersonalassistance.Utils.Util
 import com.example.myownpersonalassistance.databinding.FragmentAddScheduleBinding
+import com.example.myownpersonalassistance.db.ScheduleEntity
+import com.example.myownpersonalassistance.viewmodel.ScheduleViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import org.apache.commons.lang3.time.DateFormatUtils
 import org.joda.time.DateTime
 import java.text.ParseException
@@ -31,10 +35,12 @@ import java.time.ZoneOffset
 import java.util.*
 import java.util.concurrent.TimeUnit
 
+@AndroidEntryPoint
 class AddScheduleFragment : Fragment() {
 
    lateinit var list: ArrayList<TitleEntity>
 
+   private val scheduleViewModel : ScheduleViewModel by viewModels()
 
     var isOtherTitle:Boolean = false
     var isDateSelected = false
@@ -236,9 +242,16 @@ class AddScheduleFragment : Fragment() {
 
             if(isValidData()){
 
+                val description = fragmentAddScheduleBinding.meetingDescription.text.toString()
+                val currentTime = Calendar.getInstance().timeInMillis
+                val scheduleEntity :ScheduleEntity =
+                    ScheduleEntity(title,dateTime,description,currentTime)
+
+                scheduleViewModel.insertRun(scheduleEntity)
+
                 showMessage(requireContext(),"Record added... title = "+title
                         +" Data & Time = "+dateTime+" description = "
-                        +fragmentAddScheduleBinding.meetingDescription.text.toString())
+                        +fragmentAddScheduleBinding.meetingDescription.text.toString()+" "+currentTime)
                 // db code
             }
             else{

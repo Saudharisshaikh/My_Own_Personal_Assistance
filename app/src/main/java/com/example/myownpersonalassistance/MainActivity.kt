@@ -17,7 +17,9 @@ import com.example.myownpersonalassistance.Fragments.PrivacyFragment
 import com.example.myownpersonalassistance.Fragments.RatingFragment
 import com.example.myownpersonalassistance.databinding.ActivityMainBinding
 import com.google.android.material.navigation.NavigationView
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     lateinit var activityMainBinding: ActivityMainBinding

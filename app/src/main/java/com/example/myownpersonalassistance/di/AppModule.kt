@@ -26,6 +26,7 @@ object AppModule {
         DATABASE_NAME
     ).build()
 
-
+    @Singleton
+    @Provides
     fun provideDAO(database: ScheduleDatabase) = database.getDAO()
 }
